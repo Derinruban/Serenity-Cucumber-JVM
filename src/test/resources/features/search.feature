@@ -1,10 +1,16 @@
 Feature: Sample
 
   @ui @pageobject
-  Scenario: Should be able to search for a product from the input box
-    Given John is viewing the Etsy landing page
-#    When he searches for a product from the input box
-#    Then the result should be displayed
+  Scenario Outline: Should be able to search for a product from the input box
+    Given I am viewing the Etsy landing page
+    When I search for a <product> from the input box using the Search Button
+    Then the <product> results should be displayed
+
+  Examples:
+    |product |
+    |craft   |
+    |dresses |
+
 #
 #  @ui @wip
 #  Scenario: Should be able to search for a product from the drop-down menu

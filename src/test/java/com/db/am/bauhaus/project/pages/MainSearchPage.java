@@ -16,7 +16,7 @@ public class MainSearchPage extends PageObject {
     @FindBy(id = "search-query")
     WebElementFacade inputBox;
 
-    @FindBy(css = ".btn.btn-orange.btn-append")
+    @FindBy(css = ".search-button-wrapper .btn")
     WebElementFacade searchButton;
 
     public MainSearchPage(WebDriver driver) {
@@ -29,7 +29,7 @@ public class MainSearchPage extends PageObject {
     }
 
     public String getTopCategoriesHeader() {
-        return find(By.cssSelector("h4.pb-xs-1-5")).getText();
+        return find(By.cssSelector("h1.display-inline")).getText();
     }
 
     public String getAllCategoriesHeader() {
