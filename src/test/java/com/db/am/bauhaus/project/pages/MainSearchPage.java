@@ -22,14 +22,17 @@ public class MainSearchPage extends PageObject {
     @FindBy(id = "catnav-primary-link-10855")
     public WebElementFacade accessoriesHeader;
 
-    @FindBy(id = "catnav-primary-link-10923")
-    public WebElementFacade clothingHeader;
-
     @FindBy(id = "side-nav-category-link-10856")
     public WebElementFacade accessoriesNav;
 
-    @FindBy(id = "catnav-14-10859")
+    @FindBy(id = "side-nav-category-link-10865")
+    public WebElementFacade bagsNav;
+
+    @FindBy(id = "catnav-l4-10859")
     public WebElementFacade headbandsNav;
+
+    @FindBy(id = "catnav-l3-10867")
+    public WebElementFacade handbagsNav;
 
     public MainSearchPage(WebDriver driver) {
         super(driver);
@@ -48,8 +51,8 @@ public class MainSearchPage extends PageObject {
         return find(By.cssSelector("h1.display-inline")).getText();
     }
 
-    public String getAllCategoriesHeader() {
-        return find(By.cssSelector("h1.conform-heading.display-inline")).getText();
+    public String getContentHeader() {
+        return find(By.cssSelector(".content h1")).getText();
     }
 
 

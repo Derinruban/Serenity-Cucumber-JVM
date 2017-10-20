@@ -23,23 +23,30 @@ public class SearchUser extends ScenarioSteps {
     public void search_from_dropdown(String product) {
 
         switch (product) {
-            case "headbands":
+            case "Headbands":
                 mainSearchPage.moveToElement(mainSearchPage.accessoriesHeader);
                 mainSearchPage.moveToElement(mainSearchPage.accessoriesNav);
-                mainSearchPage.moveToElement(mainSearchPage.headbandsNav);
+                mainSearchPage.accessoriesNav.click();
+//                mainSearchPage.moveToElement(mainSearchPage.headbandsNav);
                 mainSearchPage.headbandsNav.click();
-            case "dresses":
-                mainSearchPage.moveToElement(mainSearchPage.clothingHeader);
+                break;
+            case "Handbags":
+                mainSearchPage.moveToElement(mainSearchPage.accessoriesHeader);
+                mainSearchPage.moveToElement(mainSearchPage.bagsNav);
+                mainSearchPage.bagsNav.click();
+//                mainSearchPage.moveToElement(mainSearchPage.handbagsNav);
+                mainSearchPage.handbagsNav.click();
+                break;
         }
     }
 
     @Step
-    public void verify_result_for_top_categories(String product) {
+    public void verify_result_for_input_search(String product) {
         assertThat(mainSearchPage.getTopCategoriesHeader(), containsString(product));
     }
 
     @Step
-    public void verify_result_for_all_categories(String product) {
-        assertThat(mainSearchPage.getAllCategoriesHeader(), containsString(product));
+    public void verify_result_for_dropdown_search(String product) {
+        assertThat(mainSearchPage.getContentHeader(), containsString(product));
     }
 }

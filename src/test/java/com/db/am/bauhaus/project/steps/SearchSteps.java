@@ -34,18 +34,23 @@ public class SearchSteps {
     }
 
     @When("^I search for a (.+) from the input box using the Search Button$")
-    public void i_search_for_a_craft_from_the_input_box_using_the_Search_Button(String product) {
+    public void i_search_for_a_product_from_the_input_box_using_the_Search_Button(String product) {
         user.search_from_input_box(product);
     }
 
-    @When("^I search for a (.+) from the drop-down menu$")
-    public void i_search_for_a_craft_from_the_drop_down_menu(String product) {
+    @When("^I search for (.+) from the drop-down menu$")
+    public void i_search_for_a_product_from_the_drop_down_menu(String product) {
         user.search_from_dropdown(product);
     }
 
-    @Then("^the (.+) results should be displayed$")
-    public void the_craft_results_should_be_displayed(String product) {
-        user.verify_result_for_top_categories(product);
+    @Then("^the (.+) search results should be displayed$")
+    public void the_search_results_should_be_displayed(String product) {
+        user.verify_result_for_input_search(product);
+    }
+
+    @Then("^the (.+) content results should be displayed$")
+    public void the_content_results_should_be_displayed(String product) {
+        user.verify_result_for_dropdown_search(product);
     }
 
 }
