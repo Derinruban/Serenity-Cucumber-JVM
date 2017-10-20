@@ -19,7 +19,6 @@ public class SearchSteps {
 
     @Before
     public void before() {
-
     }
 
     @Steps
@@ -52,5 +51,26 @@ public class SearchSteps {
     public void the_content_results_should_be_displayed(String product) {
         user.verify_result_for_dropdown_search(product);
     }
+
+    @Given("^I am using the Etsy API$")
+    public void i_am_using_the_Etsy_API()  {
+        user.use_Etsy_API();
+    }
+
+    @Given("^I make a suggestive search get request$")
+    public void i_make_a_suggestive_search_get_request() {
+        user.make_suggestive_search_request();
+    }
+
+    @Then("^the response code is (.+)$")
+    public void the_response_code_is(Integer code) throws Throwable {
+        user.verify_API_response_code(code);
+    }
+//
+//    @Then("^the suggested results are correctly returned$")
+//    public void the_suggested_results_are_correctly_returned() throws Throwable {
+//        // Write code here that turns the phrase above into concrete actions
+//        throw new PendingException();
+//    }
 
 }
