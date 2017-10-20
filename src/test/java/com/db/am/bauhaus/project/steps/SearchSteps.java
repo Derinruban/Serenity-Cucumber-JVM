@@ -38,6 +38,11 @@ public class SearchSteps {
         user.search_from_input_box(product);
     }
 
+    @When("^I search for a (.+) from the drop-down menu$")
+    public void i_search_for_a_craft_from_the_drop_down_menu(String product) {
+        user.search_from_dropdown(product);
+    }
+
     @Then("^the (.+) results should be displayed$")
     public void the_craft_results_should_be_displayed(String product) {
         user.verify_result_for_top_categories(product);

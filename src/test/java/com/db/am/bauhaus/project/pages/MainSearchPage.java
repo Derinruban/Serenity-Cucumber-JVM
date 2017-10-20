@@ -19,6 +19,18 @@ public class MainSearchPage extends PageObject {
     @FindBy(css = ".search-button-wrapper .btn")
     WebElementFacade searchButton;
 
+    @FindBy(id = "catnav-primary-link-10855")
+    public WebElementFacade accessoriesHeader;
+
+    @FindBy(id = "catnav-primary-link-10923")
+    public WebElementFacade clothingHeader;
+
+    @FindBy(id = "side-nav-category-link-10856")
+    public WebElementFacade accessoriesNav;
+
+    @FindBy(id = "catnav-14-10859")
+    public WebElementFacade headbandsNav;
+
     public MainSearchPage(WebDriver driver) {
         super(driver);
     }
@@ -28,6 +40,10 @@ public class MainSearchPage extends PageObject {
         searchButton.click();
     }
 
+    public void moveToElement(WebElementFacade element) {
+        withAction().moveToElement(element).perform();
+    }
+
     public String getTopCategoriesHeader() {
         return find(By.cssSelector("h1.display-inline")).getText();
     }
@@ -35,4 +51,6 @@ public class MainSearchPage extends PageObject {
     public String getAllCategoriesHeader() {
         return find(By.cssSelector("h1.conform-heading.display-inline")).getText();
     }
+
+
 }
