@@ -57,9 +57,9 @@ public class SearchSteps {
         user.use_Etsy_API();
     }
 
-    @Given("^I make a suggestive search get request$")
-    public void i_make_a_suggestive_search_get_request() {
-        user.make_suggestive_search_request();
+    @Given("^I make a suggestive search get request for (.+)$")
+    public void i_make_a_suggestive_search_get_request(String input) {
+        user.make_suggestive_search_request(input);
     }
 
     @Then("^the response code is (.+)$")
@@ -67,11 +67,44 @@ public class SearchSteps {
         user.verify_API_response_code(code);
     }
 
-    @Then("^the suggested results are correctly returned$")
-    public void the_suggested_results_are_correctly_returned() {
-        user.verify_suggested_results();
+    @Then("^the suggested results are correctly returned for (.+)$")
+    public void the_suggested_results_are_correctly_returned(String input) {
+        user.verify_suggested_results(input);
     }
 
+    @When("^I make a shop name request for (.+)$")
+    public void i_make_a_shop_name_request_for_names(String name) {
+        user.make_shop_name_request(name);
+    }
 
+    @Then("^the shop name results are correctly returned for (.+)$")
+    public void the_shop_name_results_are_correctly_returned_for_names(String name)  {
+        user.verify_valid_shop_name_results(name);
+    }
+
+    @Then("^the shop name service returns no results for (.+)$")
+    public void the_shop_name_service_returns_no_results_for(String name)  {
+        user.verify_invalid_shop_name_results(name);
+    }
+
+    @When("^I submit a valid email addess for newsletter subscribtion$")
+    public void i_submit_a_valid_email_addess_for_newsletter_subscribtion()  {
+        user.submit_subscription_email_address();
+    }
+
+    @Then("^I should see a confirmation message like (.+)$")
+    public void i_should_see_a_confirmation_message(String message) {
+        user.verify_confirmation_message(message);
+    }
+
+    @When("^I submit an (.+) email addess for newsletter subscribtion$")
+    public void i_submit_an_invalid_email_addess_for_newsletter_subscribtion(String email) {
+        user.submit_invalid_subscription_email_address(email);
+    }
+
+    @Then("^I should see an email validation message like (.+)$")
+    public void i_should_see_a_validation_message(String message) {
+        user.verify_email_validation_message(message);
+    }
 
 }

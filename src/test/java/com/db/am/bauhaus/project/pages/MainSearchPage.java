@@ -8,7 +8,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 
 /**
- * Created by ongshir on 05/10/2016.
+ * Created by DRuban on 19/10/2017.
  */
 @DefaultUrl("/")
 public class MainSearchPage extends PageObject {
@@ -33,6 +33,18 @@ public class MainSearchPage extends PageObject {
 
     @FindBy(id = "catnav-l3-10867")
     public WebElementFacade handbagsNav;
+
+    @FindBy(id = "email-text")
+    public WebElementFacade emailInput;
+
+    @FindBy(css = ".subscribe-form .btn-primary")
+    public WebElementFacade subscribeButton;
+
+    @FindBy(css = ".success-signed-out.msg-success p")
+    public WebElementFacade subscribeMessage;
+
+    @FindBy(css = ".invalid-email p")
+    public WebElementFacade emailInvalidMessage;
 
     public MainSearchPage(WebDriver driver) {
         super(driver);

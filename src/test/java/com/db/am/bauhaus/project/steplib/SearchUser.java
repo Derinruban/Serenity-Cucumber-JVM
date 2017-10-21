@@ -7,13 +7,12 @@ import net.thucydides.core.steps.ScenarioSteps;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.response.ValidatableResponse;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.junit.Assert;
+
+import java.util.ArrayList;
 
 
 /**
@@ -62,25 +61,77 @@ public class SearchUser extends ScenarioSteps {
     }
 
     @Step
-    public void use_Etsy_API() {
-        request = given().baseUri("https://www.etsy.com").contentType(ContentType.JSON);
+    public void submit_subscription_email_address() {
+        mainSearchPage.emailInput.sendKeys("tester@yahoo.de");
+        mainSearchPage.subscribeButton.click();
     }
 
     @Step
-    public void make_suggestive_search_request() {
-        response = request.get("/suggestions_ajax.php?extras=%7B%26quot%3Bexpt%26quot%3B%3A%26quot%3Boff%26quot%3B%2C%26quot%3Blang%26quot%3B%3A%26quot%3Ben-GB%26quot%3B%2C%26quot%3Bextras%26quot%3B%3A%5B%5D%7D&version=10_12672349415_15&search_query=d&search_type=all");
+    public void submit_invalid_subscription_email_address(String email) {
+        mainSearchPage.emailInput.sendKeys(email);
+        mainSearchPage.subscribeButton.click();
+    }
+
+    @Step
+    public void verify_confirmation_message(String message) {
+        Assert.assertEquals(message, mainSearchPage.subscribeMessage.getText());
+    }
+
+    @Step
+    public void verify_email_validation_message(String message) {
+        Assert.assertEquals(message, mainSearchPage.emailInvalidMessage.getText());
+    }
+
+    @Step
+    public void use_Etsy_API() {
+        request = given().baseUri("https://www.etsy.com");
+    }
+
+    @Step
+    public void make_suggestive_search_request(String input) {
+        response = request.get("/suggestions_ajax.php?search_type=all&search_query="+input);
     }
 
     @Step
     public void verify_API_response_code(Integer code) {
         Integer resp_code = response.getStatusCode();
-        Assert.assertEquals(resp_code, code);
+        Assert.assertEquals(code, resp_code);
     }
 
     @Step
-    public void verify_suggested_results() {
+    public void verify_suggested_results(String input) {
         JsonPath jsonres = response.jsonPath();
-        String query = jsonres.get("results.query[0]");
-        System.out.println(query);
+        ArrayList<String> query = jsonres.get("results.query");
+        int length = input.length();
+        int i = 0;
+        for (String a: query) {
+            if (i <= 10) {
+                Assert.assertEquals(input, a.substring(0,length));
+            }
+            i++;
+        }
+    }
+
+    @Step
+    public void make_shop_name_request(String name) {
+        response = request.get("/shop_name_search_service?page=1&q="+name);
+    }
+
+    @Step
+    public void verify_valid_shop_name_results(String name) {
+        JsonPath jsonres = response.jsonPath();
+        Integer total = jsonres.get("total_results_count");
+        ArrayList<String> results = jsonres.get("results");
+        Assert.assertTrue(total > 0);
+        Assert.assertEquals(3, results.size());
+    }
+
+    @Step
+    public void verify_invalid_shop_name_results(String name) {
+        JsonPath jsonres = response.jsonPath();
+        Integer total = jsonres.get("total_results_count");
+        ArrayList<String> results = jsonres.get("results");
+        Assert.assertTrue(total == 0);
+        Assert.assertEquals(0, results.size());
     }
 }
