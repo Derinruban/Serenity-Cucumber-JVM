@@ -66,11 +66,12 @@ public class SearchSteps {
     public void the_response_code_is(Integer code) throws Throwable {
         user.verify_API_response_code(code);
     }
-//
-//    @Then("^the suggested results are correctly returned$")
-//    public void the_suggested_results_are_correctly_returned() throws Throwable {
-//        // Write code here that turns the phrase above into concrete actions
-//        throw new PendingException();
-//    }
+
+    @Then("^the suggested results are correctly returned$")
+    public void the_suggested_results_are_correctly_returned() {
+        user.verify_suggested_results();
+    }
+
+
 
 }

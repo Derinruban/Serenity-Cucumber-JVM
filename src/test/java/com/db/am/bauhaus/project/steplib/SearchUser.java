@@ -11,6 +11,9 @@ import static io.restassured.matcher.RestAssuredMatchers.*;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.response.ValidatableResponse;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import org.junit.Assert;
 
 
 /**
@@ -19,7 +22,7 @@ import io.restassured.response.ValidatableResponse;
 public class SearchUser extends ScenarioSteps {
 
     private RequestSpecification request;
-    private ValidatableResponse response;
+    private Response response;
 
 
     MainSearchPage mainSearchPage;
@@ -60,16 +63,24 @@ public class SearchUser extends ScenarioSteps {
 
     @Step
     public void use_Etsy_API() {
-        request = given().baseUri("https://www.etsy.com");
+        request = given().baseUri("https://www.etsy.com").contentType(ContentType.JSON);
     }
 
     @Step
     public void make_suggestive_search_request() {
-        response = request.get("/suggestions_ajax.php?extras=%7B%26quot%3Bexpt%26quot%3B%3A%26quot%3Boff%26quot%3B%2C%26quot%3Blang%26quot%3B%3A%26quot%3Ben-GB%26quot%3B%2C%26quot%3Bextras%26quot%3B%3A%5B%5D%7D&version=10_12672349415_15&search_query=d&search_type=all").then();
+        response = request.get("/suggestions_ajax.php?extras=%7B%26quot%3Bexpt%26quot%3B%3A%26quot%3Boff%26quot%3B%2C%26quot%3Blang%26quot%3B%3A%26quot%3Ben-GB%26quot%3B%2C%26quot%3Bextras%26quot%3B%3A%5B%5D%7D&version=10_12672349415_15&search_query=d&search_type=all");
     }
 
     @Step
     public void verify_API_response_code(Integer code) {
-        response.statusCode(code);
+        Integer resp_code = response.getStatusCode();
+        Assert.assertEquals(resp_code, code);
+    }
+
+    @Step
+    public void verify_suggested_results() {
+        JsonPath jsonres = response.jsonPath();
+        String query = jsonres.get("results.query[0]");
+        System.out.println(query);
     }
 }
