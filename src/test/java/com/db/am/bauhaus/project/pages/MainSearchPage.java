@@ -56,8 +56,9 @@ public class MainSearchPage extends PageObject {
         return $("//*[@class=\"vesta-hp-category-card\"][contains(.,'" + type + "')]");
     }
 
-    public void moveToElement(WebElementFacade element) {
-        withAction().moveToElement(element).perform();
+    public void selectCategoryIcon(String type) {
+        evaluateJavascript("$(\".vesta-hp-category-default h2:contains('Shop by category')\").get(0).scrollIntoView();");
+        evaluateJavascript("$(\".vesta-hp-category-card:contains("+type+") .card-img-wrap\").click()");
     }
 
     public String getTopCategoriesHeader() {

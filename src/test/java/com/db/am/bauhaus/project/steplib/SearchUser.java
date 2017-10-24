@@ -1,16 +1,11 @@
 package com.db.am.bauhaus.project.steplib;
 
 import com.db.am.bauhaus.project.pages.MainSearchPage;
-import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-
-import org.jruby.RubyProcess;
 import org.junit.Assert;
-
 
 
 /**
@@ -35,9 +30,7 @@ public class SearchUser extends ScenarioSteps {
 
     @Step
     public void select_via_category_icons(String type) {
-//        mainSearchPage.moveToElement(mainSearchPage.iconCategory(type));
-        mainSearchPage.evaluateJavascript("$(\".vesta-hp-category-default h2:contains('Shop by category')\").get(0).scrollIntoView();");
-        mainSearchPage.iconCategory(type).click();
+        mainSearchPage.selectCategoryIcon(type);
     }
 
     @Step
