@@ -52,6 +52,14 @@ public class MainSearchPage extends PageObject {
         return $("//a[contains(.,'" + product + "')]");
     }
 
+    public WebElementFacade iconCategory(String type) {
+        return $("//*[@class=\"vesta-hp-category-card\"][contains(.,'" + type + "')]");
+    }
+
+    public void moveToElement(WebElementFacade element) {
+        withAction().moveToElement(element).perform();
+    }
+
     public String getTopCategoriesHeader() {
         return find(By.cssSelector("h1.display-inline")).getText();
     }

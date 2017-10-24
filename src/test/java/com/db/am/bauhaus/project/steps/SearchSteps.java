@@ -46,6 +46,11 @@ public class SearchSteps {
        user.search_from_dropdown(heading, category, product);
     }
 
+    @When("^I select the (.+) category icon$")
+    public void i_select_the_category_icon(String type)  {
+        user.select_via_category_icons(type);
+    }
+
     @Then("^the (.+) search results should be displayed$")
     public void the_search_results_should_be_displayed(String product) {
         user.verify_result_for_input_search(product);
