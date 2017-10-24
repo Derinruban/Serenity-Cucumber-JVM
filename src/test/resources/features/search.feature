@@ -15,13 +15,13 @@ Feature: Etsy UI samples
   @ui @pageobject
   Scenario Outline: Should be able to search for a product from the drop-down menu
     Given I am viewing the Etsy landing page
-    When I search for <product> from the drop-down menu
+    When I select a <menu> and a <category> and a <product> from the drop-down menu
     Then the <product> content results should be displayed
 
     Examples:
-    |product  |
-    |Headbands|
-    |Handbags |
+    |menu                   |category   |product  |
+    |Jewellery & Accessories|Accessories|Headbands|
+    |Clothing & Shoes       |Men        | Shirts  |
 
 
   @ui @pageobject

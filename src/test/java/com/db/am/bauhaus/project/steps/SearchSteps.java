@@ -41,9 +41,9 @@ public class SearchSteps {
         user.search_from_input_box(product);
     }
 
-    @When("^I search for (.+) from the drop-down menu$")
-    public void i_search_for_a_product_from_the_drop_down_menu(String product) {
-        user.search_from_dropdown(product);
+    @When("^I select a (.+) and a (.+) and a (.+) from the drop-down menu$")
+    public void i_select_a_product_from_the_drop_down_menu(String heading, String category, String product) {
+       user.search_from_dropdown(heading, category, product);
     }
 
     @Then("^the (.+) search results should be displayed$")

@@ -19,21 +19,6 @@ public class MainSearchPage extends PageObject {
     @FindBy(css = ".search-button-wrapper .btn")
     WebElementFacade searchButton;
 
-    @FindBy(id = "catnav-primary-link-10855")
-    public WebElementFacade accessoriesHeader;
-
-    @FindBy(id = "side-nav-category-link-10856")
-    public WebElementFacade accessoriesNav;
-
-    @FindBy(id = "side-nav-category-link-10865")
-    public WebElementFacade bagsNav;
-
-    @FindBy(id = "catnav-l4-10859")
-    public WebElementFacade headbandsNav;
-
-    @FindBy(id = "catnav-l3-10867")
-    public WebElementFacade handbagsNav;
-
     @FindBy(id = "email-text")
     public WebElementFacade emailInput;
 
@@ -55,8 +40,16 @@ public class MainSearchPage extends PageObject {
         searchButton.click();
     }
 
-    public void moveToElement(WebElementFacade element) {
-        withAction().moveToElement(element).perform();
+    public WebElementFacade menuHeader(String heading) {
+        return $("//span[contains(.,'" + heading + "')]");
+    }
+
+    public WebElementFacade menuCategory(String category) {
+        return $("//span[contains(.,'" + category + "')]");
+    }
+
+    public WebElementFacade menuProduct(String product) {
+        return $("//a[contains(.,'" + product + "')]");
     }
 
     public String getTopCategoriesHeader() {

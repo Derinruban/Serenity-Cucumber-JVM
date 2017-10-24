@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Assert;
 
 
+
 /**
  * Created by DRuban on 19/10/2017.
  */
@@ -22,22 +23,11 @@ public class SearchUser extends ScenarioSteps {
     }
 
     @Step
-    public void search_from_dropdown(String product) {
+    public void search_from_dropdown(String heading, String category, String product) {
 
-        switch (product) {
-            case "Headbands":
-                mainSearchPage.moveToElement(mainSearchPage.accessoriesHeader);
-                mainSearchPage.moveToElement(mainSearchPage.accessoriesNav);
-                mainSearchPage.accessoriesNav.click();
-                mainSearchPage.headbandsNav.click();
-                break;
-            case "Handbags":
-                mainSearchPage.moveToElement(mainSearchPage.accessoriesHeader);
-                mainSearchPage.moveToElement(mainSearchPage.bagsNav);
-                mainSearchPage.bagsNav.click();
-                mainSearchPage.handbagsNav.click();
-                break;
-        }
+        mainSearchPage.menuHeader(heading).click();
+        mainSearchPage.menuCategory(category).waitUntilVisible().click();
+        mainSearchPage.menuProduct(product).waitUntilVisible().click();
     }
 
     @Step
